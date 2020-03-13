@@ -9,7 +9,19 @@ Content-Disposition: form-data; name="file"; filename="input.txt"
 
 ###
 
-GET http://localhost:8080/api/aluno/17726268
+GET http://localhost:8080/api/aluno/123456
 Accept: application/json
+
+###
+
+POST http://localhost:8080/api/aluno
+Content-Type: application/json
+
+{
+  "rm": 123456,
+  "nome": "Raimundo nonato",
+  "numeroCartao": 123456,
+  "digitoCartao": 10
+}
 
 ###

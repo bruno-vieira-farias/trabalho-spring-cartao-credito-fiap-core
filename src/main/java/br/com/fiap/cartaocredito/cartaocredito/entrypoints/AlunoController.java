@@ -33,8 +33,17 @@ public class AlunoController {
     }
 
     @PostMapping
-    public void importaAlunos(@RequestParam("file") MultipartFile file) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public void cadastraAluno(@RequestBody() AlunoDto alunoDto) {
+        try {
+            alunoService.cadastraAluno(alunoDto.getRm(), alunoDto.getNome(), alunoDto.getNumeroCartao(), alunoDto.getDigitoCartao());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        }
+    }
 
+    @PostMapping("/importacao")
+    public void importaAlunos(@RequestParam("file") MultipartFile file) {
         try {
             String conteudoArquivo = new String(file.getBytes(), StandardCharsets.UTF_8);
             importacaoArquivoAlunosService.importaAlunos(conteudoArquivo);
