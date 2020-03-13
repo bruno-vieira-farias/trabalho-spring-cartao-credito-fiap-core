@@ -1,4 +1,4 @@
-package br.com.fiap.cartaocredito.cartaocredito.domain;
+package br.com.fiap.cartaocredito.cartaocredito.domain.arquivoAluno;
 
 /**
  * Classe que representa cada linha do arquivo importado.

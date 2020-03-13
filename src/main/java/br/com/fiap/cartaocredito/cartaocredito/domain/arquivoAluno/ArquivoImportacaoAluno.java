@@ -1,4 +1,6 @@
-package br.com.fiap.cartaocredito.cartaocredito.domain;
+package br.com.fiap.cartaocredito.cartaocredito.domain.arquivoAluno;
+
+import br.com.fiap.cartaocredito.cartaocredito.domain.arquivoAluno.Linha;
 
 import java.util.List;
 import java.util.stream.Collectors;

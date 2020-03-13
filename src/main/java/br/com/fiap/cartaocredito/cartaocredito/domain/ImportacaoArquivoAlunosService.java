@@ -1,5 +1,8 @@
 package br.com.fiap.cartaocredito.cartaocredito.domain;
 
+import br.com.fiap.cartaocredito.cartaocredito.domain.Aluno;
+import br.com.fiap.cartaocredito.cartaocredito.domain.AlunoRepository;
+import br.com.fiap.cartaocredito.cartaocredito.domain.arquivoAluno.ArquivoImportacaoAluno;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
