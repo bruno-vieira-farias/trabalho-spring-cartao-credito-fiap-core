@@ -1,4 +1,4 @@
-POST http://localhost:8080/api/aluno
+POST http://localhost:8080/api/importacao
 Content-Type: multipart/form-data; boundary=boundary
 
 --boundary
@@ -9,7 +9,7 @@ Content-Disposition: form-data; name="file"; filename="input.txt"
 
 ###
 
-GET http://localhost:8080/api/aluno/123456
+GET http://localhost:8080/api/aluno/2781650
 Accept: application/json
 
 ###

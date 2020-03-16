@@ -1,4 +1,4 @@
-package br.com.fiap.cartaocredito.cartaocredito.entrypoints.Transacao;
+package br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

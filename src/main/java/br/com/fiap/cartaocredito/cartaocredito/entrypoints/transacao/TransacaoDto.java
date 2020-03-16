@@ -1,4 +1,4 @@
-package br.com.fiap.cartaocredito.cartaocredito.entrypoints.Transacao;
+package br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;

@@ -1,7 +1,11 @@
-package br.com.fiap.cartaocredito.cartaocredito.domain;
+package br.com.fiap.cartaocredito.cartaocredito.domain.service;
 
+import br.com.fiap.cartaocredito.cartaocredito.domain.entity.Aluno;
+import br.com.fiap.cartaocredito.cartaocredito.domain.repository.AlunoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class AlunoService {
@@ -21,9 +25,14 @@ public class AlunoService {
         return aluno;
     }
 
-    public void cadastraAluno(Long rm, String nome, Long numeroCartao, Long digitoCartao){
+    public void cadastraAlunos(List<Aluno> alunos){
+
+    }
+
+    @Transactional
+    public void cadastraAluno(Long rm, String nome){
         certificaQueAlunoPodeSerCriado(rm);
-        Aluno aluno = new Aluno(rm,nome,numeroCartao,digitoCartao);
+        Aluno aluno = new Aluno(rm,nome);
         alunoRepository.save(aluno);
     }
 
