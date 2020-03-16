@@ -5,8 +5,66 @@ import java.time.ZonedDateTime;
 
 public class TransacaoDto {
     private ZonedDateTime dataHoraCriacao;
+    private BigDecimal valor;
+    private StatusTransacaoDto status;
     private Long numeroCartao;
     private Long digitoCartao;
-    private BigDecimal valor;
-    private String status; //Autorizada, Nao_Autorizada, Estornada
+    private String codigoAutorizacao;
+
+    public TransacaoDto(ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacaoDto status, Long numeroCartao, Long digitoCartao, String codigoAutorizacao) {
+        this.dataHoraCriacao = dataHoraCriacao;
+        this.valor = valor;
+        this.status = status;
+        this.numeroCartao = numeroCartao;
+        this.digitoCartao = digitoCartao;
+        this.codigoAutorizacao = codigoAutorizacao;
+    }
+
+    public ZonedDateTime getDataHoraCriacao() {
+        return dataHoraCriacao;
+    }
+
+    public void setDataHoraCriacao(ZonedDateTime dataHoraCriacao) {
+        this.dataHoraCriacao = dataHoraCriacao;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+
+    public StatusTransacaoDto getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusTransacaoDto status) {
+        this.status = status;
+    }
+
+    public Long getNumeroCartao() {
+        return numeroCartao;
+    }
+
+    public void setNumeroCartao(Long numeroCartao) {
+        this.numeroCartao = numeroCartao;
+    }
+
+    public Long getDigitoCartao() {
+        return digitoCartao;
+    }
+
+    public void setDigitoCartao(Long digitoCartao) {
+        this.digitoCartao = digitoCartao;
+    }
+
+    public String getCodigoAutorizacao() {
+        return codigoAutorizacao;
+    }
+
+    public void setCodigoAutorizacao(String codigoAutorizacao) {
+        this.codigoAutorizacao = codigoAutorizacao;
+    }
 }

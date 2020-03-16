@@ -1,6 +1,8 @@
 package br.com.fiap.cartaocredito.cartaocredito.domain.entity;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
@@ -17,6 +19,14 @@ public class Transacao {
     private CartaoCredito cartao;
 
     public Transacao() {
+    }
+
+    public Transacao(ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacao status, String codigoAutorizacao, CartaoCredito cartao) {
+        this.dataHoraCriacao = dataHoraCriacao;
+        this.valor = valor;
+        this.status = status;
+        this.codigoAutorizacao = codigoAutorizacao;
+        this.cartao = cartao;
     }
 
     public Integer getId() {
@@ -66,6 +76,7 @@ public class Transacao {
     public void setCartao(CartaoCredito cartao) {
         this.cartao = cartao;
     }
+
 
 
 }
