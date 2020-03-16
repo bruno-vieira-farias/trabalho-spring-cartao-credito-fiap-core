@@ -1,4 +1,4 @@
-package br.com.fiap.cartaocredito.cartaocredito.entrypoints;
+package br.com.fiap.cartaocredito.cartaocredito.entrypoints.Aluno;
 
 public class AlunoDto {
     private Long rm;

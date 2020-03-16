@@ -1,4 +1,4 @@
-package br.com.fiap.cartaocredito.cartaocredito.entrypoints;
+package br.com.fiap.cartaocredito.cartaocredito.entrypoints.Aluno;
 
 import br.com.fiap.cartaocredito.cartaocredito.domain.Aluno;
 import br.com.fiap.cartaocredito.cartaocredito.domain.AlunoService;
