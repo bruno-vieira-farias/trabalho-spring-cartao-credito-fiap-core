@@ -21,7 +21,8 @@ public class Transacao {
     public Transacao() {
     }
 
-    public Transacao(ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacao status, String codigoAutorizacao, CartaoCredito cartao) {
+    public Transacao(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacao status, String codigoAutorizacao, CartaoCredito cartao) {
+        this.id = id;
         this.dataHoraCriacao = dataHoraCriacao;
         this.valor = valor;
         this.status = status;

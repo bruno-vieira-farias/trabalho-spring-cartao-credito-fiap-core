@@ -1,13 +1,16 @@
 package br.com.fiap.cartaocredito.cartaocredito.domain.entity;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import java.util.Objects;
 
 @Entity
 public class CartaoCredito {
-    @Id
-    private Long numeroCartao;
-    private Long digitoVerificadorCartao;
+
+    @EmbeddedId
+    private CartaoCreditoPk id;
+
     @OneToOne
     private Aluno titular;
 
@@ -15,25 +18,16 @@ public class CartaoCredito {
     }
 
     public CartaoCredito(Long numeroCartao, Long digitoVerificadorCartao, Aluno titular) {
-        this.numeroCartao = numeroCartao;
-        this.digitoVerificadorCartao = digitoVerificadorCartao;
+        this.id = new CartaoCreditoPk(numeroCartao,digitoVerificadorCartao);
         this.titular = titular;
     }
 
-    public Long getNumeroCartao() {
-        return numeroCartao;
+    public CartaoCreditoPk getId() {
+        return id;
     }
 
-    public void setNumeroCartao(Long numeroCartao) {
-        this.numeroCartao = numeroCartao;
-    }
-
-    public Long getDigitoVerificadorCartao() {
-        return digitoVerificadorCartao;
-    }
-
-    public void setDigitoVerificadorCartao(Long digitoVerificadorCartao) {
-        this.digitoVerificadorCartao = digitoVerificadorCartao;
+    public void setId(CartaoCreditoPk id) {
+        this.id = id;
     }
 
     public Aluno getTitular() {
@@ -49,11 +43,11 @@ public class CartaoCredito {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartaoCredito that = (CartaoCredito) o;
-        return Objects.equals(numeroCartao, that.numeroCartao);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(numeroCartao);
+        return Objects.hash(id);
     }
 }

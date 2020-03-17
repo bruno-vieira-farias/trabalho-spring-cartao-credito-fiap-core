@@ -1,0 +1,18 @@
+POST http://localhost:8080/api/transacao
+Content-Type: application/json
+
+{
+  "id": 1,
+  "dataHoraCriacao": "2020-03-16T22:54:34-03:00",
+  "valor": 100.0,
+  "status": "AUTORIZADA",
+  "numeroCartao": 500,
+  "digitoCartao": 34,
+  "codigoAutorizacao": "abshhscvoododvjvs"
+}
+
+###
+
+GET http://localhost:8080/api/transacao/1
+
+###

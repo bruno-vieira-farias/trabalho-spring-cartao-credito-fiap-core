@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 
 public class TransacaoDto {
+    private Integer id;
     private ZonedDateTime dataHoraCriacao;
     private BigDecimal valor;
     private StatusTransacaoDto status;
@@ -11,13 +12,22 @@ public class TransacaoDto {
     private Long digitoCartao;
     private String codigoAutorizacao;
 
-    public TransacaoDto(ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacaoDto status, Long numeroCartao, Long digitoCartao, String codigoAutorizacao) {
+    public TransacaoDto(Integer id,ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacaoDto status, Long numeroCartao, Long digitoCartao, String codigoAutorizacao) {
+        this.id = id;
         this.dataHoraCriacao = dataHoraCriacao;
         this.valor = valor;
         this.status = status;
         this.numeroCartao = numeroCartao;
         this.digitoCartao = digitoCartao;
         this.codigoAutorizacao = codigoAutorizacao;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public ZonedDateTime getDataHoraCriacao() {

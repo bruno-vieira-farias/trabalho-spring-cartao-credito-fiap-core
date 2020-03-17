@@ -1,15 +1,4 @@
-POST http://localhost:8080/api/importacao
-Content-Type: multipart/form-data; boundary=boundary
-
---boundary
-Content-Disposition: form-data; name="file"; filename="input.txt"
-
-// The 'input.txt' file will be uploaded
-< c:/Users/Bruno/Documents/Mba-Fiap/Spring/lista_alunos.txt
-
-###
-
-GET http://localhost:8080/api/aluno/2781650
+GET http://localhost:8080/api/aluno/123456
 Accept: application/json
 
 ###
@@ -19,9 +8,7 @@ Content-Type: application/json
 
 {
   "rm": 123456,
-  "nome": "Raimundo nonato",
-  "numeroCartao": 123456,
-  "digitoCartao": 10
+  "nome": "Raimundo nonato"
 }
 
 ###

@@ -1,14 +1,12 @@
 package br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao;
 
 
+import br.com.fiap.cartaocredito.cartaocredito.domain.entity.Transacao;
 import br.com.fiap.cartaocredito.cartaocredito.domain.service.TransacaoService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/transacoes")
+@RequestMapping("/transacao")
 public class TransacoesController {
 
     private final TransacaoService transacaoService;
@@ -20,6 +18,7 @@ public class TransacoesController {
     @PostMapping()
     public void registraTransacao(@RequestBody TransacaoDto transacaoDto) {
         transacaoService.registraTransacao(
+                transacaoDto.getId(),
                 transacaoDto.getDataHoraCriacao(),
                 transacaoDto.getValor(),
                 transacaoDto.getStatus().name(),
@@ -27,7 +26,20 @@ public class TransacoesController {
                 transacaoDto.getDigitoCartao(),
                 transacaoDto.getCodigoAutorizacao()
         );
+    }
 
+    @GetMapping("/{id}")
+    public TransacaoDto buscaPorId(@PathVariable Integer id){
+        Transacao transacao = transacaoService.buscaTransacaoPorId(id);
+        return new TransacaoDto(
+                transacao.getId(),
+                transacao.getDataHoraCriacao(),
+                transacao.getValor(),
+                StatusTransacaoDto.valueOf(transacao.getStatus().name()),
+                transacao.getCartao().getId().getNumero(),
+                transacao.getCartao().getId().getDigitoVerificador(),
+                transacao.getCodigoAutorizacao()
+        );
     }
 
 }
