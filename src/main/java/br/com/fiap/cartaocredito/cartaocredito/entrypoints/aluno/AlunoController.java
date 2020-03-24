@@ -28,11 +28,31 @@ public class AlunoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void cadastraAluno(@RequestBody() AlunoDto alunoDto) {
+    public void cadastraAluno(@RequestBody AlunoDto alunoDto) {
         try {
             alunoService.cadastraAluno(alunoDto.getRm(), alunoDto.getNome());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }
+
+    @PutMapping
+    public void atualizaAluno(@RequestBody AlunoDto alunoDto){
+        try {
+            alunoService.atualizaAluno(alunoDto.getRm(), alunoDto.getNome());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        }
+    }
+
+    @DeleteMapping("{rm}")
+    public void deletaAluno(@PathVariable Long rm){
+        try {
+            alunoService.deletaALuno(rm);
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
+    }
+
 }

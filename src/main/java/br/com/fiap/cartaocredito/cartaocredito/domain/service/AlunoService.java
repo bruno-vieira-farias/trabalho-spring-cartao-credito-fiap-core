@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,23 +29,35 @@ public class AlunoService {
 
     @Transactional
     public void cadastraAlunos(List<Aluno> alunos) {
-        List<Long> rms = alunos.stream()
+        Set<Long> rms = alunos.stream()
                 .map(Aluno::getRm)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
-//        if (alunoRepository.existsByRm(rms)) {
-//            throw new IllegalArgumentException("Já existe um aluno cadastrado com o rm informado.");
-//        }
+        if (alunoRepository.existsAllByRmIn(rms)) {
+            throw new IllegalArgumentException("Já existe um aluno cadastrado com o rm informado.");
+        }
 
         alunoRepository.saveAll(alunos);
     }
 
     @Transactional
-    public Aluno cadastraAluno(Long rm, String nome) {
+    public void cadastraAluno(Long rm, String nome) {
         certificaQueAlunoPodeSerCriado(rm);
 
         Aluno aluno = new Aluno(rm, nome);
-        return alunoRepository.save(aluno);
+        alunoRepository.save(aluno);
+    }
+
+    @Transactional
+    public void atualizaAluno(Long rm, String nome){
+        Aluno aluno = buscaAlunoPorRm(rm);
+        aluno.setNome(nome);
+        alunoRepository.save(aluno);
+    }
+
+    @Transactional
+    public void deletaALuno(Long rm){
+        alunoRepository.deleteById(rm);
     }
 
     private void certificaQueAlunoPodeSerCriado(Long rm) {

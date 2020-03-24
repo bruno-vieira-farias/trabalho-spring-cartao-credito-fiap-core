@@ -1,14 +1,15 @@
-GET http://localhost:8080/api/aluno/123456
-Accept: application/json
-
-###
-
 POST http://localhost:8080/api/aluno
 Content-Type: application/json
 
 {
-  "rm": 123456,
-  "nome": "Raimundo nonato"
+  "rm": 171,
+  "nome": "Bozonaro Luladrão da Dilma e Temer"
 }
 
 ###
+
+GET http://localhost:8080/api/aluno/171
+Accept: application/json
+
+###
+
