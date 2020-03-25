@@ -16,18 +16,18 @@ public class Transacao {
     private String codigoAutorizacao;
 
     @ManyToOne
-    private CartaoCredito cartao;
+    private Aluno aluno;
 
     public Transacao() {
     }
 
-    public Transacao(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacao status, String codigoAutorizacao, CartaoCredito cartao) {
+    public Transacao(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacao status, String codigoAutorizacao, Aluno aluno) {
         this.id = id;
         this.dataHoraCriacao = dataHoraCriacao;
         this.valor = valor;
         this.status = status;
         this.codigoAutorizacao = codigoAutorizacao;
-        this.cartao = cartao;
+        this.aluno = aluno;
     }
 
     public Integer getId() {
@@ -70,14 +70,11 @@ public class Transacao {
         this.codigoAutorizacao = codigoAutorizacao;
     }
 
-    public CartaoCredito getCartao() {
-        return cartao;
+    public Aluno getAluno() {
+        return aluno;
     }
 
-    public void setCartao(CartaoCredito cartao) {
-        this.cartao = cartao;
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
-
-
-
 }

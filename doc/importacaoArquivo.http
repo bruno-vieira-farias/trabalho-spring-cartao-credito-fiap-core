@@ -14,20 +14,9 @@ Accept: application/json
 
 ###
 
-GET http://localhost:8080/api/cartaoCredito/aluno/4872368
+GET http://localhost:8080/api/aluno/4801015
 Accept: application/json
 
 ###
-
-GET http://localhost:8080/api/cartaoCredito/aluno/1794811
-Accept: application/json
-
-###
-
-GET http://localhost:8080/api/cartaoCredito/aluno/2781165
-Accept: application/json
-
-###
-
 
 

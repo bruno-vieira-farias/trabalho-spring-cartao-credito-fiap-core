@@ -6,14 +6,14 @@ package br.com.fiap.cartaocredito.cartaocredito.domain.arquivoImportacao;
 public class Linha {
     private String nome;
     private Long rm;
-    private Long numeroCartao;
-    private Long digitoCartao;
+    private String numeroCartao;
+    private String digitoCartao;
 
-    public Linha(String nome, Long rm, Long numeroCartao, Long digitoCartaoAluno) {
+    public Linha(String nome, Long rm, String numeroCartao, String digitoCartao) {
         this.nome = nome;
         this.rm = rm;
         this.numeroCartao = numeroCartao;
-        this.digitoCartao = digitoCartaoAluno;
+        this.digitoCartao = digitoCartao;
     }
 
     public String getNome() {
@@ -24,11 +24,11 @@ public class Linha {
         return rm;
     }
 
-    public Long getNumeroCartao() {
+    public String getNumeroCartao() {
         return numeroCartao;
     }
 
-    public Long getDigitoCartao() {
+    public String getDigitoCartao() {
         return digitoCartao;
     }
 }

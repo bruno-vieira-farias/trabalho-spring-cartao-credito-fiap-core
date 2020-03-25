@@ -30,16 +30,18 @@ public class TransacoesController {
 
     @GetMapping("/{id}")
     public TransacaoDto buscaPorId(@PathVariable Integer id){
-        Transacao transacao = transacaoService.buscaTransacaoPorId(id);
-        return new TransacaoDto(
-                transacao.getId(),
-                transacao.getDataHoraCriacao(),
-                transacao.getValor(),
-                StatusTransacaoDto.valueOf(transacao.getStatus().name()),
-                transacao.getCartao().getId().getNumero(),
-                transacao.getCartao().getId().getDigitoVerificador(),
-                transacao.getCodigoAutorizacao()
-        );
+//        Transacao transacao = transacaoService.buscaTransacaoPorId(id);
+//        return new TransacaoDto(
+//                transacao.getId(),
+//                transacao.getDataHoraCriacao(),
+//                transacao.getValor(),
+//                StatusTransacaoDto.valueOf(transacao.getStatus().name()),
+//                transacao.getAluno().getId().getNumero(),
+//                transacao.getAluno().getId().getDigitoVerificador(),
+//                transacao.getCodigoAutorizacao()
+//        );
+
+        return new TransacaoDto();
     }
 
 }

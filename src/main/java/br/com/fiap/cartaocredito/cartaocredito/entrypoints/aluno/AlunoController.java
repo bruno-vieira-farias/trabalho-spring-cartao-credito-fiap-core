@@ -20,7 +20,7 @@ public class AlunoController {
     public AlunoDto obtemAlunoPorRm(@PathVariable Long rm) {
         try {
             Aluno aluno = alunoService.buscaAlunoPorRm(rm);
-            return new AlunoDto(aluno.getRm(), aluno.getNome());
+            return new AlunoDto(aluno.getRm(), aluno.getNome(), aluno.getNumeroCompletoCartaoCredito());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
@@ -30,14 +30,14 @@ public class AlunoController {
     @ResponseStatus(HttpStatus.CREATED)
     public void cadastraAluno(@RequestBody AlunoDto alunoDto) {
         try {
-            alunoService.cadastraAluno(alunoDto.getRm(), alunoDto.getNome());
+            alunoService.cadastraAluno(alunoDto.getRm(), alunoDto.getNome(),alunoDto.getNumeroCompletoCartaoCredito());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }
     }
 
     @PutMapping
-    public void atualizaAluno(@RequestBody AlunoDto alunoDto){
+    public void atualizaAluno(@RequestBody AlunoDto alunoDto) {
         try {
             alunoService.atualizaAluno(alunoDto.getRm(), alunoDto.getNome());
         } catch (Exception e) {
@@ -46,7 +46,7 @@ public class AlunoController {
     }
 
     @DeleteMapping("{rm}")
-    public void deletaAluno(@PathVariable Long rm){
+    public void deletaAluno(@PathVariable Long rm) {
         try {
             alunoService.deletaALuno(rm);
         } catch (Exception e) {

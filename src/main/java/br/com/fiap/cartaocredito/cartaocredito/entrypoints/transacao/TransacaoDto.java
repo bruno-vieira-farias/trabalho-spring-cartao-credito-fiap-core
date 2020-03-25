@@ -12,7 +12,10 @@ public class TransacaoDto {
     private Long digitoCartao;
     private String codigoAutorizacao;
 
-    public TransacaoDto(Integer id,ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacaoDto status, Long numeroCartao, Long digitoCartao, String codigoAutorizacao) {
+    public TransacaoDto() {
+    }
+
+    public TransacaoDto(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacaoDto status, Long numeroCartao, Long digitoCartao, String codigoAutorizacao) {
         this.id = id;
         this.dataHoraCriacao = dataHoraCriacao;
         this.valor = valor;

@@ -38,11 +38,11 @@ public class ArquivoImportacao {
         return Long.parseLong(linha.substring(41, 48));
     }
 
-    private Long extraiNumeroCartaoCredito(String linha) {
-        return Long.parseLong(linha.substring(49, 52));
+    private String extraiNumeroCartaoCredito(String linha) {
+        return linha.substring(49, 52);
     }
 
-    private Long extraiDigitoCartaoCredito(String linha) {
-        return Long.parseLong(linha.substring(53, 55));
+    private String extraiDigitoCartaoCredito(String linha) {
+        return linha.substring(53, 55);
     }
 }

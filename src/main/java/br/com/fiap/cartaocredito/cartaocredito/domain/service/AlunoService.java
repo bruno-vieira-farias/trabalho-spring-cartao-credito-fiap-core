@@ -41,22 +41,22 @@ public class AlunoService {
     }
 
     @Transactional
-    public void cadastraAluno(Long rm, String nome) {
+    public void cadastraAluno(Long rm, String nome, String numeroCompletoCartaoCredito) {
         certificaQueAlunoPodeSerCriado(rm);
 
-        Aluno aluno = new Aluno(rm, nome);
+        Aluno aluno = new Aluno(rm, nome, numeroCompletoCartaoCredito);
         alunoRepository.save(aluno);
     }
 
     @Transactional
-    public void atualizaAluno(Long rm, String nome){
+    public void atualizaAluno(Long rm, String nome) {
         Aluno aluno = buscaAlunoPorRm(rm);
         aluno.setNome(nome);
         alunoRepository.save(aluno);
     }
 
     @Transactional
-    public void deletaALuno(Long rm){
+    public void deletaALuno(Long rm) {
         alunoRepository.deleteById(rm);
     }
 
