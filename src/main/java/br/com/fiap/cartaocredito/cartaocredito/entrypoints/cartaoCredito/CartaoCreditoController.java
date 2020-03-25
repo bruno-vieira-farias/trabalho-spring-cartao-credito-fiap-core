@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/cartaoCredito")
 public class CartaoCreditoController {
@@ -17,10 +20,32 @@ public class CartaoCreditoController {
     }
 
     @GetMapping("/aluno/{rm}")
-    private CartaoCreditoDto buscaCartaoCreditoPorRmAluno(@PathVariable Long rm) {
+    private List<CartaoCreditoDto> buscaCartaoCreditoPorRmAluno(@PathVariable Long rm) {
         try {
-            CartaoCredito cartaoCredito = cartaoCreditoService.buscaCartaoCreditoPorRmAluno(rm);
-            return new CartaoCreditoDto(rm, cartaoCredito.getId().getNumero(), cartaoCredito.getId().getDigitoVerificador());
+            List<CartaoCredito> listaCartaoCredito = cartaoCreditoService.buscaCartaoCreditoPorRmAluno(rm);
+
+            List<CartaoCreditoDto> listaCartaoCreditoDto = listaCartaoCredito.stream()
+                    .map(it -> new CartaoCreditoDto(rm, it.getId().getNumero(), it.getId().getDigitoVerificador()))
+                    .collect(Collectors.toList());
+
+            return listaCartaoCreditoDto;
+
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/aluno")
+    private List<CartaoCreditoDto> buscaTodosCartoesCredito() {
+        try {
+            List<CartaoCredito> listaCartaoCredito = cartaoCreditoService.buscaTodosCartoesCredito();
+
+            List<CartaoCreditoDto> listaCartaoCreditoDto = listaCartaoCredito.stream()
+                    .map(it -> new CartaoCreditoDto(it.getTitular().getRm(), it.getId().getNumero(), it.getId().getDigitoVerificador()))
+                    .collect(Collectors.toList());
+
+            return listaCartaoCreditoDto;
+
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }

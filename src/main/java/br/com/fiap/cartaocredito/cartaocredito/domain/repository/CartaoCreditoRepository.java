@@ -2,10 +2,14 @@ package br.com.fiap.cartaocredito.cartaocredito.domain.repository;
 
 import br.com.fiap.cartaocredito.cartaocredito.domain.entity.CartaoCredito;
 import br.com.fiap.cartaocredito.cartaocredito.domain.entity.CartaoCreditoPk;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
-public interface CartaoCreditoRepository extends CrudRepository<CartaoCredito, CartaoCreditoPk> {
+import java.util.List;
 
-    CartaoCredito findByTitular_Rm(Long rm);
+public interface CartaoCreditoRepository extends JpaRepository<CartaoCredito, CartaoCreditoPk> {
+
+    @Query("SELECT c FROM CartaoCredito c  WHERE c.titular.rm = :rm")
+    List<CartaoCredito> findByTitular_Rm(Long rm);
 
 }

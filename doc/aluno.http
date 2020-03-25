@@ -13,3 +13,11 @@ Accept: application/json
 
 ###
 
+GET http://localhost:8080/api/aluno/4821815
+Accept: application/json
+
+###
+
+
+
+

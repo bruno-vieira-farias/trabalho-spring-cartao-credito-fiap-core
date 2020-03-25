@@ -7,6 +7,8 @@ import br.com.fiap.cartaocredito.cartaocredito.domain.repository.CartaoCreditoRe
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class CartaoCreditoService {
 
@@ -19,8 +21,13 @@ public class CartaoCreditoService {
     }
 
     @Transactional
-    public CartaoCredito buscaCartaoCreditoPorRmAluno(Long rmAluno) {
+    public List<CartaoCredito> buscaCartaoCreditoPorRmAluno(Long rmAluno) {
         return cartaoCreditoRepository.findByTitular_Rm(rmAluno);
+    }
+
+    @Transactional
+    public List<CartaoCredito> buscaTodosCartoesCredito() {
+        return cartaoCreditoRepository.findAll();
     }
 
     @Transactional
