@@ -8,21 +8,16 @@ public class TransacaoDto {
     private ZonedDateTime dataHoraCriacao;
     private BigDecimal valor;
     private StatusTransacaoDto status;
-    private Long numeroCartao;
-    private Long digitoCartao;
     private String codigoAutorizacao;
+    private Long rmALuno;
 
-    public TransacaoDto() {
-    }
-
-    public TransacaoDto(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacaoDto status, Long numeroCartao, Long digitoCartao, String codigoAutorizacao) {
+    public TransacaoDto(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacaoDto status, String codigoAutorizacao, Long rmALuno) {
         this.id = id;
         this.dataHoraCriacao = dataHoraCriacao;
         this.valor = valor;
         this.status = status;
-        this.numeroCartao = numeroCartao;
-        this.digitoCartao = digitoCartao;
         this.codigoAutorizacao = codigoAutorizacao;
+        this.rmALuno = rmALuno;
     }
 
     public Integer getId() {
@@ -57,27 +52,19 @@ public class TransacaoDto {
         this.status = status;
     }
 
-    public Long getNumeroCartao() {
-        return numeroCartao;
-    }
-
-    public void setNumeroCartao(Long numeroCartao) {
-        this.numeroCartao = numeroCartao;
-    }
-
-    public Long getDigitoCartao() {
-        return digitoCartao;
-    }
-
-    public void setDigitoCartao(Long digitoCartao) {
-        this.digitoCartao = digitoCartao;
-    }
-
     public String getCodigoAutorizacao() {
         return codigoAutorizacao;
     }
 
     public void setCodigoAutorizacao(String codigoAutorizacao) {
         this.codigoAutorizacao = codigoAutorizacao;
+    }
+
+    public Long getRmALuno() {
+        return rmALuno;
+    }
+
+    public void setRmALuno(Long rmALuno) {
+        this.rmALuno = rmALuno;
     }
 }

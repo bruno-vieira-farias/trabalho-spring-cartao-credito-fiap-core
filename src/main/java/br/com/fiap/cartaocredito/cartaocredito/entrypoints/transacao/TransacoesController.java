@@ -1,6 +1,5 @@
 package br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao;
 
-
 import br.com.fiap.cartaocredito.cartaocredito.domain.entity.Transacao;
 import br.com.fiap.cartaocredito.cartaocredito.domain.service.TransacaoService;
 import org.springframework.web.bind.annotation.*;
@@ -22,26 +21,21 @@ public class TransacoesController {
                 transacaoDto.getDataHoraCriacao(),
                 transacaoDto.getValor(),
                 transacaoDto.getStatus().name(),
-                transacaoDto.getNumeroCartao(),
-                transacaoDto.getDigitoCartao(),
-                transacaoDto.getCodigoAutorizacao()
+                transacaoDto.getCodigoAutorizacao(),
+                transacaoDto.getRmALuno()
         );
     }
 
     @GetMapping("/{id}")
-    public TransacaoDto buscaPorId(@PathVariable Integer id){
-//        Transacao transacao = transacaoService.buscaTransacaoPorId(id);
-//        return new TransacaoDto(
-//                transacao.getId(),
-//                transacao.getDataHoraCriacao(),
-//                transacao.getValor(),
-//                StatusTransacaoDto.valueOf(transacao.getStatus().name()),
-//                transacao.getAluno().getId().getNumero(),
-//                transacao.getAluno().getId().getDigitoVerificador(),
-//                transacao.getCodigoAutorizacao()
-//        );
-
-        return new TransacaoDto();
+    public TransacaoDto buscaPorId(@PathVariable Integer id) {
+        Transacao transacao = transacaoService.buscaTransacaoPorId(id);
+        return new TransacaoDto(
+                transacao.getId(),
+                transacao.getDataHoraCriacao(),
+                transacao.getValor(),
+                StatusTransacaoDto.valueOf(transacao.getStatus().name()),
+                transacao.getCodigoAutorizacao(),
+                transacao.getAluno().getRm()
+        );
     }
-
 }
