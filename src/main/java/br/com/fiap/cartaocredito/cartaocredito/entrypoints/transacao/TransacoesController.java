@@ -2,7 +2,10 @@ package br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao;
 
 import br.com.fiap.cartaocredito.cartaocredito.domain.entity.Transacao;
 import br.com.fiap.cartaocredito.cartaocredito.domain.service.TransacaoService;
+import javassist.NotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 @RequestMapping("/transacao")
@@ -22,20 +25,25 @@ public class TransacoesController {
                 transacaoDto.getValor(),
                 transacaoDto.getStatus().name(),
                 transacaoDto.getCodigoAutorizacao(),
-                transacaoDto.getRmALuno()
+                transacaoDto.getRmAluno()
         );
     }
 
     @GetMapping("/{id}")
     public TransacaoDto buscaPorId(@PathVariable Integer id) {
-        Transacao transacao = transacaoService.buscaTransacaoPorId(id);
-        return new TransacaoDto(
-                transacao.getId(),
-                transacao.getDataHoraCriacao(),
-                transacao.getValor(),
-                StatusTransacaoDto.valueOf(transacao.getStatus().name()),
-                transacao.getCodigoAutorizacao(),
-                transacao.getAluno().getRm()
-        );
+        try {
+            Transacao transacao = transacaoService.buscaTransacaoPorId(id);
+            return new TransacaoDto(
+                    transacao.getId(),
+                    transacao.getDataHoraCriacao(),
+                    transacao.getValor(),
+                    StatusTransacaoDto.valueOf(transacao.getStatus().name()),
+                    transacao.getCodigoAutorizacao(),
+                    transacao.getAluno().getRm()
+            );
+        } catch (NotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,e.getMessage(), e);
+        }
     }
 }

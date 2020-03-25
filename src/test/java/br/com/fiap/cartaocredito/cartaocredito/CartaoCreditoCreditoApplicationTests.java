@@ -41,7 +41,7 @@ class CartaoCreditoCreditoApplicationTests {
 	void contextLoads() throws  Exception{
 
 
-		AlunoDto aluno = new AlunoDto(99999L, "Teste Post");
+		AlunoDto aluno = new AlunoDto(99999L, "Teste Post","");
 
 		mockMvc.perform(post("/aluno")
 				.contentType("application/json")

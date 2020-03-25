@@ -4,11 +4,14 @@ import br.com.fiap.cartaocredito.cartaocredito.domain.entity.Aluno;
 import br.com.fiap.cartaocredito.cartaocredito.domain.entity.StatusTransacao;
 import br.com.fiap.cartaocredito.cartaocredito.domain.entity.Transacao;
 import br.com.fiap.cartaocredito.cartaocredito.domain.repository.TransacaoRepository;
+import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransacaoService {
@@ -31,9 +34,21 @@ public class TransacaoService {
     }
 
     @Transactional
-    public Transacao buscaTransacaoPorId(Integer id) {
+    public Transacao buscaTransacaoPorId(Integer id) throws NotFoundException {
+
+        Optional<Transacao> transacao = transacaoRepository.findById(id);
+
+        if(!transacao.isPresent())
+            throw new NotFoundException("Transação não encontrada");
+
+        return transacao.get();
+    }
+
+    @Transactional
+    public List<Transacao> buscaTransacoesPorCartao(String numeroCompletoCartao){
         //Todo - Tratar caso nao exista
-        return transacaoRepository.findById(id).get();
+
+        return transacaoRepository.findByAlunoNumeroCompletoCartaoCredito(numeroCompletoCartao);
     }
 
     private void certificaQueTransacaoPodeSerCriada() {/*Todo Implementar.*/}
