@@ -1,6 +1,5 @@
 POST http://localhost:8080/api/transacao
 Content-Type: application/json
-
 {
   "id": 1,
   "dataHoraCriacao": "2020-03-16T22:54:34-03:00",
@@ -16,3 +15,10 @@ Content-Type: application/json
 GET http://localhost:8080/api/transacao/1
 
 ###
+
+   private Integer id;
+    private ZonedDateTime dataHoraCriacao;
+    private BigDecimal valor;
+    private StatusTransacaoDto status;
+    private String codigoAutorizacao;
+    private Long rmALuno;

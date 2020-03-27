@@ -18,5 +18,3 @@ GET http://localhost:8080/api/aluno/4801015
 Accept: application/json
 
 ###
-
-

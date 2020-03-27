@@ -2,18 +2,42 @@ POST http://localhost:8080/api/aluno
 Content-Type: application/json
 
 {
-  "rm": 171,
-  "nome": "Bozonaro Luladrão da Dilma e Temer"
+  "rm": 24696924,
+  "nome": "Bozonaro Luladrão da Dilma e Temer",
+  "codigoTurma": "171-66"
+
 }
 
 ###
 
-GET http://localhost:8080/api/aluno/171
+GET http://localhost:8080/api/aluno/24696924
 Accept: application/json
 
 ###
 
 GET http://localhost:8080/api/aluno/4821815
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/aluno/codigoTurma/100-11
+Accept: application/json
+
+###
+
+PUT http://localhost:8080/api/aluno
+Content-Type: application/json
+
+{
+  "rm": 24696924,
+  "nome": "Bozonaro Luladrão da Dilmaluca e Temeroso",
+  "codigoTurma": "171-66"
+
+}
+
+###
+
+DELETE http://localhost:8080/api/aluno/24696924
 Accept: application/json
 
 ###

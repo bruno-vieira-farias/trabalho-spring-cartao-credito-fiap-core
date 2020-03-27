@@ -1,6 +1,6 @@
 package br.com.fiap.cartaocredito.cartaocredito.entrypoints.importacaoArquivo;
 
-import br.com.fiap.cartaocredito.cartaocredito.domain.service.ImportacaoArquivoAlunoCartaoCreditoService;
+import br.com.fiap.cartaocredito.cartaocredito.domain.service.ImportacaoArquivoAlunoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,9 +15,9 @@ import java.nio.charset.StandardCharsets;
 @RequestMapping("/importacao")
 public class ImportaArquivoController {
 
-    private final ImportacaoArquivoAlunoCartaoCreditoService importacaoArquivo;
+    private final ImportacaoArquivoAlunoService importacaoArquivo;
 
-    public ImportaArquivoController(ImportacaoArquivoAlunoCartaoCreditoService importacaoArquivo) {
+    public ImportaArquivoController(ImportacaoArquivoAlunoService importacaoArquivo) {
         this.importacaoArquivo = importacaoArquivo;
     }
 

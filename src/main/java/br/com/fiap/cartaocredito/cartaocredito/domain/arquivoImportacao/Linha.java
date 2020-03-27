@@ -6,29 +6,38 @@ package br.com.fiap.cartaocredito.cartaocredito.domain.arquivoImportacao;
 public class Linha {
     private String nome;
     private Long rm;
-    private String numeroCartao;
-    private String digitoCartao;
+    private String codigoTurma;
 
-    public Linha(String nome, Long rm, String numeroCartao, String digitoCartao) {
+    public Linha() {
+    }
+
+    public Linha(String nome, Long rm, String codigoTurma) {
         this.nome = nome;
         this.rm = rm;
-        this.numeroCartao = numeroCartao;
-        this.digitoCartao = digitoCartao;
+        this.codigoTurma = codigoTurma;
     }
 
     public String getNome() {
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public Long getRm() {
         return rm;
     }
 
-    public String getNumeroCartao() {
-        return numeroCartao;
+    public void setRm(Long rm) {
+        this.rm = rm;
     }
 
-    public String getDigitoCartao() {
-        return digitoCartao;
+    public String getCodigoTurma() {
+        return codigoTurma;
+    }
+
+    public void setCodigoTurma(String codigoTurma) {
+        this.codigoTurma = codigoTurma;
     }
 }

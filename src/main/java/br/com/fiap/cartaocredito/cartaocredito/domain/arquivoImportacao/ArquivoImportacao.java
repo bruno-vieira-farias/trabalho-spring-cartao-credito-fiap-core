@@ -12,7 +12,7 @@ public class ArquivoImportacao {
         List<String> linhasValidas = filtraLinhasArquivo(linhas);
 
         this.linhas = linhasValidas.stream()
-                .map(linha -> new Linha(extraiNomeAluno(linha), extraiRmAluno(linha), extraiNumeroCartaoCredito(linha), extraiDigitoCartaoCredito(linha))
+                .map(linha -> new Linha(extraiNomeAluno(linha), extraiRmAluno(linha), extraiCodigoTurma(linha))
                 ).collect(Collectors.toList());
     }
 
@@ -24,7 +24,7 @@ public class ArquivoImportacao {
         return Stream.of(linhas)
                 .filter( /*Ignora linhas vazias*/
                         linha -> linha.length() > 0)
-                .filter( /*Ignora linhas iniciadas com o caracter -*/
+                .filter( /*Ignora linhas iniciadas com o caracter '-' */
                         linha -> !linha.substring(0, 1).equals("-"))
                 .filter(linha -> !linha.equals("\u001A\r")
                 ).collect(Collectors.toList());
@@ -38,11 +38,7 @@ public class ArquivoImportacao {
         return Long.parseLong(linha.substring(41, 48));
     }
 
-    private String extraiNumeroCartaoCredito(String linha) {
-        return linha.substring(49, 52);
-    }
-
-    private String extraiDigitoCartaoCredito(String linha) {
-        return linha.substring(53, 55);
+    private String extraiCodigoTurma(String linha) {
+        return linha.substring(49, 55);
     }
 }

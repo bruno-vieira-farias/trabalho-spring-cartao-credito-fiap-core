@@ -6,6 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/aluno")
 public class AlunoController {
@@ -20,7 +23,21 @@ public class AlunoController {
     public AlunoDto obtemAlunoPorRm(@PathVariable Long rm) {
         try {
             Aluno aluno = alunoService.buscaAlunoPorRm(rm);
-            return new AlunoDto(aluno.getRm(), aluno.getNome(), aluno.getNumeroCompletoCartaoCredito());
+            return new AlunoDto(aluno.getRm(), aluno.getNome(), aluno.getCodigoTurma());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/codigo-turma/{codigoTurma}")
+    public List<AlunoDto> obtemAlunosPorCodigoTurma(@PathVariable String codigoTurma){
+        try {
+            List<Aluno> alunos = alunoService.buscaAlunosCodigoTurma(codigoTurma);
+            List<AlunoDto> alunosDto = alunos.stream()
+                    .map(it -> new AlunoDto(it.getRm(), it.getNome(), it.getCodigoTurma()))
+                    .collect(Collectors.toList());
+
+            return alunosDto;
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
@@ -30,7 +47,7 @@ public class AlunoController {
     @ResponseStatus(HttpStatus.CREATED)
     public void cadastraAluno(@RequestBody AlunoDto alunoDto) {
         try {
-            alunoService.cadastraAluno(alunoDto.getRm(), alunoDto.getNome(),alunoDto.getNumeroCompletoCartaoCredito());
+            alunoService.cadastraAluno(alunoDto.getRm(), alunoDto.getNome(),alunoDto.getCodigoTurma());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
         }

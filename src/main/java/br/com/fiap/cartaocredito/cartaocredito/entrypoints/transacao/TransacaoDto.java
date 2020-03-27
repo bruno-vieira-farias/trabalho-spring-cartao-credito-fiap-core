@@ -10,6 +10,7 @@ public class TransacaoDto {
     private StatusTransacaoDto status;
     private String codigoAutorizacao;
     private Long rmALuno;
+    private String numeroCompletoCartaoCredito;
 
     public TransacaoDto(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacaoDto status, String codigoAutorizacao, Long rmALuno) {
         this.id = id;

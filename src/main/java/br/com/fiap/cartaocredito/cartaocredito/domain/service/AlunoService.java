@@ -28,6 +28,17 @@ public class AlunoService {
     }
 
     @Transactional
+    public List<Aluno> buscaAlunosCodigoTurma(String codigoTurma) {
+        List<Aluno> alunos = alunoRepository.findByCodigoTurma(codigoTurma);
+
+        if (alunos.size() == 0){
+            throw new IllegalArgumentException("Não foi localizado nenhum aluno para a turma solicitada.");
+        }
+
+        return alunos;
+    }
+
+    @Transactional
     public void cadastraAlunos(List<Aluno> alunos) {
         Set<Long> rms = alunos.stream()
                 .map(Aluno::getRm)

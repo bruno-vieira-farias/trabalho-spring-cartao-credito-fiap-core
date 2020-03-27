@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ImportacaoArquivoAlunoCartaoCreditoService {
+public class ImportacaoArquivoAlunoService {
     private final AlunoService alunoService;
 
-    public ImportacaoArquivoAlunoCartaoCreditoService(AlunoService alunoService) {
+    public ImportacaoArquivoAlunoService(AlunoService alunoService) {
         this.alunoService = alunoService;
     }
 
@@ -29,8 +29,7 @@ public class ImportacaoArquivoAlunoCartaoCreditoService {
                 .map(linha -> new Aluno(
                                 linha.getRm(),
                                 linha.getNome(),
-                                linha.getNumeroCartao().concat(linha.getDigitoCartao())
-                        )
+                                linha.getCodigoTurma())
                 ).collect(Collectors.toList());
     }
 }

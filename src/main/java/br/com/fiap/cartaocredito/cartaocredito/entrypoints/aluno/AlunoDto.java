@@ -3,12 +3,12 @@ package br.com.fiap.cartaocredito.cartaocredito.entrypoints.aluno;
 public class AlunoDto {
     private Long rm;
     private String nome;
-    private String numeroCompletoCartaoCredito;
+    private String codigoTurma;
 
-    public AlunoDto(Long rm, String nome, String numeroCompletoCartaoCredito) {
+    public AlunoDto(Long rm, String nome, String codigoTurma) {
         this.rm = rm;
         this.nome = nome;
-        this.numeroCompletoCartaoCredito = numeroCompletoCartaoCredito;
+        this.codigoTurma = codigoTurma;
     }
 
     public Long getRm() {
@@ -27,11 +27,11 @@ public class AlunoDto {
         this.nome = nome;
     }
 
-    public String getNumeroCompletoCartaoCredito() {
-        return numeroCompletoCartaoCredito;
+    public String getCodigoTurma() {
+        return codigoTurma;
     }
 
-    public void setNumeroCompletoCartaoCredito(String numeroCompletoCartaoCredito) {
-        this.numeroCompletoCartaoCredito = numeroCompletoCartaoCredito;
+    public void setCodigoTurma(String codigoTurma) {
+        this.codigoTurma = codigoTurma;
     }
 }
