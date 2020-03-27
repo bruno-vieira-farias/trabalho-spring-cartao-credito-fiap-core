@@ -11,9 +11,11 @@ import java.util.stream.Collectors;
 @Service
 public class ImportacaoArquivoAlunoService {
     private final AlunoService alunoService;
+    private final CartaoCreditoService cartaoCreditoService;
 
-    public ImportacaoArquivoAlunoService(AlunoService alunoService) {
+    public ImportacaoArquivoAlunoService(AlunoService alunoService, CartaoCreditoService cartaoCreditoService) {
         this.alunoService = alunoService;
+        this.cartaoCreditoService = cartaoCreditoService;
     }
 
     @Transactional
@@ -22,6 +24,7 @@ public class ImportacaoArquivoAlunoService {
         List<Aluno> alunos = obtemAlunos(arquivoImportacao);
 
         alunoService.cadastraAlunos(alunos);
+        cartaoCreditoService.geraNovoCartaoCredito2(alunos);
     }
 
     private List<Aluno> obtemAlunos(ArquivoImportacao arquivoImportacao) {
