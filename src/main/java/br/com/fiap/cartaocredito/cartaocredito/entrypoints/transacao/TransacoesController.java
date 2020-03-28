@@ -25,7 +25,7 @@ public class TransacoesController {
                 transacaoDto.getValor(),
                 transacaoDto.getStatus().name(),
                 transacaoDto.getCodigoAutorizacao(),
-                transacaoDto.getRmAluno()
+                transacaoDto.getNumeroCartao()
         );
     }
 
@@ -39,7 +39,7 @@ public class TransacoesController {
                     transacao.getValor(),
                     StatusTransacaoDto.valueOf(transacao.getStatus().name()),
                     transacao.getCodigoAutorizacao(),
-                    transacao.getAluno().getRm()
+                    transacao.getCartaoCredito().getNumero()
             );
         } catch (NotFoundException e) {
             throw new ResponseStatusException(

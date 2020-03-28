@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ImportacaoArquivoAlunoCartaoCreditoService {
+public class ImportacaoArquivoAlunoService {
     private final AlunoService alunoService;
+    private final CartaoCreditoService cartaoCreditoService;
 
-    public ImportacaoArquivoAlunoCartaoCreditoService(AlunoService alunoService) {
+    public ImportacaoArquivoAlunoService(AlunoService alunoService, CartaoCreditoService cartaoCreditoService) {
         this.alunoService = alunoService;
+        this.cartaoCreditoService = cartaoCreditoService;
     }
 
     @Transactional
@@ -22,6 +24,7 @@ public class ImportacaoArquivoAlunoCartaoCreditoService {
         List<Aluno> alunos = obtemAlunos(arquivoImportacao);
 
         alunoService.cadastraAlunos(alunos);
+        cartaoCreditoService.geraNovoCartaoCredito2(alunos);
     }
 
     private List<Aluno> obtemAlunos(ArquivoImportacao arquivoImportacao) {
@@ -29,8 +32,7 @@ public class ImportacaoArquivoAlunoCartaoCreditoService {
                 .map(linha -> new Aluno(
                                 linha.getRm(),
                                 linha.getNome(),
-                                linha.getNumeroCartao().concat(linha.getDigitoCartao())
-                        )
+                                linha.getCodigoTurma())
                 ).collect(Collectors.toList());
     }
 }

@@ -9,19 +9,15 @@ public class Aluno {
     @Id
     private Long rm;
     private String nome;
-    private String numeroCompletoCartaoCredito;
+    private String codigoTurma;
 
     public Aluno() {
     }
 
-    public Aluno(Long rm, String nome, String numeroCompletoCartaoCredito) {
+    public Aluno(Long rm, String nome, String codigoTurma) {
         this.rm = rm;
         this.nome = nome;
-        this.numeroCompletoCartaoCredito = numeroCompletoCartaoCredito;
-    }
-
-    public String getNome() {
-        return nome;
+        this.codigoTurma = codigoTurma;
     }
 
     public Long getRm() {
@@ -32,16 +28,20 @@ public class Aluno {
         this.rm = rm;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    public String getNumeroCompletoCartaoCredito() {
-        return numeroCompletoCartaoCredito;
+    public String getCodigoTurma() {
+        return codigoTurma;
     }
 
-    public void setNumeroCompletoCartaoCredito(String numeroCompletoCartaoCredito) {
-        this.numeroCompletoCartaoCredito = numeroCompletoCartaoCredito;
+    public void setCodigoTurma(String codigoTurma) {
+        this.codigoTurma = codigoTurma;
     }
 
     @Override
