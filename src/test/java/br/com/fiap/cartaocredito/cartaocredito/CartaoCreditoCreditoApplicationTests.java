@@ -1,7 +1,9 @@
 package br.com.fiap.cartaocredito.cartaocredito;
 
 import br.com.fiap.cartaocredito.cartaocredito.domain.entity.Aluno;
+import br.com.fiap.cartaocredito.cartaocredito.domain.entity.CartaoCredito;
 import br.com.fiap.cartaocredito.cartaocredito.domain.repository.AlunoRepository;
+import br.com.fiap.cartaocredito.cartaocredito.domain.repository.CartaoCreditoRepository;
 import br.com.fiap.cartaocredito.cartaocredito.entrypoints.aluno.AlunoDto;
 import br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao.StatusTransacaoDto;
 import br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao.TransacaoDto;
@@ -11,10 +13,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.io.File;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -36,6 +43,9 @@ class CartaoCreditoCreditoApplicationTests {
 
     @Autowired
     private AlunoRepository alunoRepository;
+
+    @Autowired
+    CartaoCreditoRepository cartaoCreditoRepository;
 
     @Test
     void contextLoads() throws Exception {
@@ -78,14 +88,26 @@ class CartaoCreditoCreditoApplicationTests {
         //TransacoesController
         Integer id = -99999;
 		rm = -99998;
+		Long numeroCartao = 123412341234L;
+		Integer cvc = 123;
+        LocalDate vencimento = LocalDate.now().plusYears(2);
         ZonedDateTime data = ZonedDateTime.ofInstant(new Date().toInstant(), ZoneOffset.systemDefault());
-        TransacaoDto transacaoDto = new TransacaoDto(id, data, new BigDecimal("1500.99"), StatusTransacaoDto.AUTORIZADA, "Aut -99999", rm);
+        TransacaoDto transacaoDto = new TransacaoDto(id, data, new BigDecimal("1500.99"), StatusTransacaoDto.AUTORIZADA, "Aut -99999", numeroCartao);
 		aluno = alunoRepository.findByRm(rm);
 
 		if (aluno == null) {
             aluno = new Aluno(rm, "Teste Post", codigoTurma);
 			alunoRepository.save(aluno);
 		}
+
+        //Adiciona cartão
+        CartaoCredito cartao = new CartaoCredito(aluno, numeroCartao, cvc, vencimento);
+		cartaoCreditoRepository.save(cartao);
+
+		//Get cartão por titular
+        mockMvc.perform(get("/cartao-credito/titular/{idTitular}", rm))
+                .andDo(print()).andExpect(status().isOk());
+
 
         //Post Registra transação
         mockMvc.perform(post("/transacao")
@@ -96,5 +118,17 @@ class CartaoCreditoCreditoApplicationTests {
 		//Get Transação por ID
         mockMvc.perform(get("/transacao/{id}", id))
                 .andDo(print()).andExpect(status().isOk());
-	}
+
+
+        //Importa Arquivo
+        InputStream inputStream = getClass()
+                .getClassLoader().getResourceAsStream("lista_alunos.txt");
+
+        MockMultipartFile txtFile = new MockMultipartFile("lista_alunos.txt", "", "text/html", inputStream);
+
+        mockMvc.perform(MockMvcRequestBuilders.multipart("/importacao")
+                .file("file", txtFile.getBytes())
+                .characterEncoding("UTF-8"))
+                .andExpect(status().isOk());
+ 	}
 }
