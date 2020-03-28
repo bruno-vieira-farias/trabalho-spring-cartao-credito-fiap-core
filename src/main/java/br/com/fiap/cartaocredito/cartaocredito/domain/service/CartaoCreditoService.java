@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,10 +30,10 @@ public class CartaoCreditoService {
         CartaoCreditoDto novoCartaoDto = geradorCartaoCreditoService.obtemCartaoNovo();
 
         CartaoCredito cartaoCredito = new CartaoCredito(
-                                                aluno,
-                                                novoCartaoDto.getNumero(),
-                                                novoCartaoDto.getCvc(),
-                                                novoCartaoDto.getVencimento()
+                aluno,
+                novoCartaoDto.getNumero(),
+                novoCartaoDto.getCvc(),
+                novoCartaoDto.getVencimento()
         );
 
         cartaoCreditoRepository.save(cartaoCredito);
@@ -55,17 +56,23 @@ public class CartaoCreditoService {
     }
 
     @Transactional
-    public List<CartaoCredito> buscaCartaoPorIdTitular(Long idTitular){
-        return  cartaoCreditoRepository.findByTitular_Rm(idTitular);
+    public List<CartaoCredito> buscaCartaoPorIdTitular(Long idTitular) {
+        return cartaoCreditoRepository.findByTitular_Rm(idTitular);
     }
 
     @Transactional
-    public List<CartaoCredito> buscaCartoesCreditoPorNumero(List<Long> numeros){
-        return  cartaoCreditoRepository.findAllById(numeros);
+    public List<CartaoCredito> buscaCartoesCreditoPorNumero(Set<Long> numeros) {
+        List<CartaoCredito> cartoesCredito = cartaoCreditoRepository.findAllById(numeros);
+
+        if (cartoesCredito.size() != numeros.size()){
+            throw new IllegalArgumentException("Exitem cartões não cadastrados.");
+        }
+
+        return cartoesCredito;
     }
 
     @Transactional
-    public CartaoCredito buscaCartaoPorId(Long id){
+    public CartaoCredito buscaCartaoPorId(Long id) {
         Optional<CartaoCredito> cartao = cartaoCreditoRepository.findById(id);
 
         if (!cartao.isPresent()) {

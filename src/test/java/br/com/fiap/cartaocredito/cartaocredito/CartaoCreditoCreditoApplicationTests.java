@@ -4,9 +4,9 @@ import br.com.fiap.cartaocredito.cartaocredito.domain.entity.Aluno;
 import br.com.fiap.cartaocredito.cartaocredito.domain.entity.CartaoCredito;
 import br.com.fiap.cartaocredito.cartaocredito.domain.repository.AlunoRepository;
 import br.com.fiap.cartaocredito.cartaocredito.domain.repository.CartaoCreditoRepository;
+import br.com.fiap.cartaocredito.cartaocredito.domain.service.TransacaoDto;
 import br.com.fiap.cartaocredito.cartaocredito.entrypoints.aluno.AlunoDto;
 import br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao.StatusTransacaoDto;
-import br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao.TransacaoDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,13 +18,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import java.io.File;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -82,29 +79,29 @@ class CartaoCreditoCreditoApplicationTests {
                 .content(objectMapper.writeValueAsString(alunoDto)))
                 .andExpect(status().isOk());
 
-		//Delete Aluno
-		mockMvc.perform(delete("/aluno/{rm}", rm)).andExpect(status().isOk());
+        //Delete Aluno
+        mockMvc.perform(delete("/aluno/{rm}", rm)).andExpect(status().isOk());
 
         //TransacoesController
         Integer id = -99999;
-		rm = -99998;
-		Long numeroCartao = 123412341234L;
-		Integer cvc = 123;
+        rm = -99998;
+        Long numeroCartao = 123412341234L;
+        Integer cvc = 123;
         LocalDate vencimento = LocalDate.now().plusYears(2);
-        ZonedDateTime data = ZonedDateTime.ofInstant(new Date().toInstant(), ZoneOffset.systemDefault());
+        LocalDateTime data = LocalDateTime.now();
         TransacaoDto transacaoDto = new TransacaoDto(id, data, new BigDecimal("1500.99"), StatusTransacaoDto.AUTORIZADA, "Aut -99999", numeroCartao);
-		aluno = alunoRepository.findByRm(rm);
+        aluno = alunoRepository.findByRm(rm);
 
-		if (aluno == null) {
+        if (aluno == null) {
             aluno = new Aluno(rm, "Teste Post", codigoTurma);
-			alunoRepository.save(aluno);
-		}
+            alunoRepository.save(aluno);
+        }
 
         //Adiciona cartão
         CartaoCredito cartao = new CartaoCredito(aluno, numeroCartao, cvc, vencimento);
-		cartaoCreditoRepository.save(cartao);
+        cartaoCreditoRepository.save(cartao);
 
-		//Get cartão por titular
+        //Get cartão por titular
         mockMvc.perform(get("/cartao-credito/titular/{idTitular}", rm))
                 .andDo(print()).andExpect(status().isOk());
 
@@ -115,7 +112,7 @@ class CartaoCreditoCreditoApplicationTests {
                 .content(objectMapper.writeValueAsString(transacaoDto)))
                 .andExpect(status().isOk());
 
-		//Get Transação por ID
+        //Get Transação por ID
         mockMvc.perform(get("/transacao/{id}", id))
                 .andDo(print()).andExpect(status().isOk());
 
@@ -130,5 +127,5 @@ class CartaoCreditoCreditoApplicationTests {
                 .file("file", txtFile.getBytes())
                 .characterEncoding("UTF-8"))
                 .andExpect(status().isOk());
- 	}
+    }
 }
