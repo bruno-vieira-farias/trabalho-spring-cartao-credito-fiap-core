@@ -56,8 +56,12 @@ public class CartaoCreditoService {
 
     @Transactional
     public List<CartaoCredito> buscaCartaoPorIdTitular(Long idTitular){
-        List<CartaoCredito> cartoesCredito = cartaoCreditoRepository.findByTitular_Rm(idTitular);
-        return cartoesCredito;
+        return  cartaoCreditoRepository.findByTitular_Rm(idTitular);
+    }
+
+    @Transactional
+    public List<CartaoCredito> buscaCartoesCreditoPorNumero(List<Long> numeros){
+        return  cartaoCreditoRepository.findAllById(numeros);
     }
 
     @Transactional
