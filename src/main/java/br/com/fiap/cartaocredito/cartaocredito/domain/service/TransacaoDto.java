@@ -1,17 +1,19 @@
-package br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao;
+package br.com.fiap.cartaocredito.cartaocredito.domain.service;
+
+import br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao.StatusTransacaoDto;
 
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 public class TransacaoDto {
     private Integer id;
-    private ZonedDateTime dataHoraCriacao;
+    private LocalDateTime dataHoraCriacao;
     private BigDecimal valor;
     private StatusTransacaoDto status;
     private String codigoAutorizacao;
     private Long numeroCartao;
 
-    public TransacaoDto(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacaoDto status, String codigoAutorizacao, Long numeroCartao) {
+    public TransacaoDto(Integer id, LocalDateTime dataHoraCriacao, BigDecimal valor, StatusTransacaoDto status, String codigoAutorizacao, Long numeroCartao) {
         this.id = id;
         this.dataHoraCriacao = dataHoraCriacao;
         this.valor = valor;
@@ -24,7 +26,7 @@ public class TransacaoDto {
         return id;
     }
 
-    public ZonedDateTime getDataHoraCriacao() {
+    public LocalDateTime getDataHoraCriacao() {
         return dataHoraCriacao;
     }
 
@@ -47,9 +49,9 @@ public class TransacaoDto {
     @Override
     public String toString() {
         return " Id: " + getId() +
-                "; Hor√°rio da transa√ß√£o: " + getDataHoraCriacao() +
+                "; Hor·rio da transaÁ„o: " + getDataHoraCriacao() +
                 "; Valor: " + getValor() +
                 "; Status: " + getStatus() +
-                "; C√≥digo de Autoriza√ß√£o: " + getCodigoAutorizacao();
+                "; CÛdigo de AutorizaÁ„o: " + getCodigoAutorizacao();
     }
 }

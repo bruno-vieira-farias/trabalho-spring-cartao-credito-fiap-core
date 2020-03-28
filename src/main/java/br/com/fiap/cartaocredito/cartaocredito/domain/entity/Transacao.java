@@ -4,13 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Entity
 public class Transacao {
     @Id
     private Integer id;
-    private ZonedDateTime dataHoraCriacao;
+    private LocalDateTime dataHoraCriacao;
     private BigDecimal valor;
     private StatusTransacao status;
     private String codigoAutorizacao;
@@ -21,7 +21,7 @@ public class Transacao {
     public Transacao() {
     }
 
-    public Transacao(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacao status, String codigoAutorizacao, CartaoCredito cartaoCredito) {
+    public Transacao(Integer id, LocalDateTime dataHoraCriacao, BigDecimal valor, StatusTransacao status, String codigoAutorizacao, CartaoCredito cartaoCredito) {
         this.id = id;
         this.dataHoraCriacao = dataHoraCriacao;
         this.valor = valor;
@@ -38,11 +38,11 @@ public class Transacao {
         this.id = id;
     }
 
-    public ZonedDateTime getDataHoraCriacao() {
+    public LocalDateTime getDataHoraCriacao() {
         return dataHoraCriacao;
     }
 
-    public void setDataHoraCriacao(ZonedDateTime dataHoraCriacao) {
+    public void setDataHoraCriacao(LocalDateTime dataHoraCriacao) {
         this.dataHoraCriacao = dataHoraCriacao;
     }
 

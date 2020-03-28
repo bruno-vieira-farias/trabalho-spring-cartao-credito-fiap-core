@@ -1,8 +1,8 @@
 package br.com.fiap.cartaocredito.cartaocredito.entrypoints.extrato;
 
+import br.com.fiap.cartaocredito.cartaocredito.domain.service.TransacaoDto;
 import br.com.fiap.cartaocredito.cartaocredito.domain.service.TransacaoService;
 import br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao.StatusTransacaoDto;
-import br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao.TransacaoDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

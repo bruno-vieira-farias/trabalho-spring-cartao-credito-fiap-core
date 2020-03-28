@@ -60,6 +60,11 @@ public class CartaoCreditoService {
     }
 
     @Transactional
+    public List<CartaoCredito> buscaCartoesCreditoPorNumero(List<Long> numeros){
+        return  cartaoCreditoRepository.findAllById(numeros);
+    }
+
+    @Transactional
     public CartaoCredito buscaCartaoPorNumero(Long numero){
         Optional<CartaoCredito> cartao = cartaoCreditoRepository.findById(numero);
 

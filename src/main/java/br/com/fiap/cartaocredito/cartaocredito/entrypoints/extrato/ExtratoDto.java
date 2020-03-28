@@ -1,6 +1,7 @@
 package br.com.fiap.cartaocredito.cartaocredito.entrypoints.extrato;
 
-import br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao.TransacaoDto;
+
+import br.com.fiap.cartaocredito.cartaocredito.domain.service.TransacaoDto;
 
 import java.time.ZonedDateTime;
 import java.util.List;

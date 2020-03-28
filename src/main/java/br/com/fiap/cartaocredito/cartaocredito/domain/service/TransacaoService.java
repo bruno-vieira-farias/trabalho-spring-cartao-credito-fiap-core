@@ -11,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.NoResultException;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
-import java.util.Optional;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TransacaoService {
@@ -26,16 +28,44 @@ public class TransacaoService {
     }
 
     @Transactional
-    public void registraTransacao(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, String name, String codigoAutorizacao, Long numeroCartao) {
-        CartaoCredito cartaoCredito = cartaoCreditoService.buscaCartaoPorNumero(numeroCartao);
+    public void registraTransacao(TransacaoDto transacaoDto) {
+        CartaoCredito cartaoCredito = cartaoCreditoService.buscaCartaoPorNumero(transacaoDto.getNumeroCartao());
 
-        Transacao transacao = new Transacao(id, dataHoraCriacao, valor, StatusTransacao.valueOf(name), codigoAutorizacao, cartaoCredito);
+        Transacao transacao = new Transacao(
+                transacaoDto.getId(),
+                transacaoDto.getDataHoraCriacao(),
+                transacaoDto.getValor(),
+                StatusTransacao.valueOf(transacaoDto.getStatus().name()),
+                transacaoDto.getCodigoAutorizacao(),
+                cartaoCredito);
+
         transacaoRepository.save(transacao);
     }
 
     @Transactional
-    public Transacao buscaTransacaoPorId(Integer id) throws NotFoundException {
+    public void registraTransacoes(List<TransacaoDto> transacoesDto) {
+        List<Long> numerosCartao = transacoesDto.stream()
+                .map(TransacaoDto::getNumeroCartao)
+                .collect(Collectors.toList());
 
+        Map<Long, CartaoCredito> cartaoPorNumeroCartao =
+                cartaoCreditoService.buscaCartoesCreditoPorNumero(numerosCartao).stream()
+                        .collect(Collectors.toMap(CartaoCredito::getNumero, cartao -> cartao));
+
+        List<Transacao> transacoes = transacoesDto.stream().map(it ->
+                new Transacao(it.getId(),
+                        it.getDataHoraCriacao(),
+                        it.getValor(),
+                        StatusTransacao.valueOf(it.getStatus().name()),
+                        it.getCodigoAutorizacao(),
+                        cartaoPorNumeroCartao.get(it.getNumeroCartao())
+                )).collect(Collectors.toList());
+
+        transacaoRepository.saveAll(transacoes);
+    }
+
+    @Transactional
+    public Transacao buscaTransacaoPorId(Integer id) throws NotFoundException {
         Optional<Transacao> transacao = transacaoRepository.findById(id);
 
         if(!transacao.isPresent())
