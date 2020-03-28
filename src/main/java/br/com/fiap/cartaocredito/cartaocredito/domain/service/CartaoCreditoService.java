@@ -53,4 +53,10 @@ public class CartaoCreditoService {
         cartaoCreditoRepository.saveAll(cartoes);
     }
 
+    @Transactional
+    public List<CartaoCredito> buscaCartaoPorIdTitular(Long idTitular){
+        List<CartaoCredito> cartoesCredito = cartaoCreditoRepository.findByTitular_Rm(idTitular);
+        return cartoesCredito;
+    }
+
 }
