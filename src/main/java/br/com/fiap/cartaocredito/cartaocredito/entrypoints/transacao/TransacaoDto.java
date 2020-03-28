@@ -9,16 +9,15 @@ public class TransacaoDto {
     private BigDecimal valor;
     private StatusTransacaoDto status;
     private String codigoAutorizacao;
-    private Long rmALuno;
-    private String numeroCompletoCartaoCredito;
+    private Long numeroCartao;
 
-    public TransacaoDto(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacaoDto status, String codigoAutorizacao, Long rmALuno) {
+    public TransacaoDto(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, StatusTransacaoDto status, String codigoAutorizacao, Long numeroCartao) {
         this.id = id;
         this.dataHoraCriacao = dataHoraCriacao;
         this.valor = valor;
         this.status = status;
         this.codigoAutorizacao = codigoAutorizacao;
-        this.rmALuno = rmALuno;
+        this.numeroCartao = numeroCartao;
     }
 
     public Integer getId() {
@@ -61,11 +60,11 @@ public class TransacaoDto {
         this.codigoAutorizacao = codigoAutorizacao;
     }
 
-    public Long getRmALuno() {
-        return rmALuno;
+    public Long getNumeroCartao() {
+        return numeroCartao;
     }
 
-    public void setRmALuno(Long rmALuno) {
-        this.rmALuno = rmALuno;
+    public void setNumeroCartao(Long numeroCartao) {
+        this.numeroCartao = numeroCartao;
     }
 }

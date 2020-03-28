@@ -22,7 +22,7 @@ public class TransacoesController {
                 transacaoDto.getValor(),
                 transacaoDto.getStatus().name(),
                 transacaoDto.getCodigoAutorizacao(),
-                transacaoDto.getRmALuno()
+                transacaoDto.getNumeroCartao()
         );
     }
 
@@ -35,7 +35,7 @@ public class TransacoesController {
                 transacao.getValor(),
                 StatusTransacaoDto.valueOf(transacao.getStatus().name()),
                 transacao.getCodigoAutorizacao(),
-                transacao.getAluno().getRm()
+                transacao.getCartaoCredito().getNumero()
         );
     }
 }
