@@ -8,6 +8,7 @@ import javassist.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.NoResultException;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Optional;
@@ -26,7 +27,7 @@ public class TransacaoService {
 
     @Transactional
     public void registraTransacao(Integer id, ZonedDateTime dataHoraCriacao, BigDecimal valor, String name, String codigoAutorizacao, Long numeroCartao) {
-        CartaoCredito cartaoCredito = cartaoCreditoService.buscaCartaoPorId(numeroCartao);
+        CartaoCredito cartaoCredito = cartaoCreditoService.buscaCartaoPorNumero(numeroCartao);
 
         Transacao transacao = new Transacao(id, dataHoraCriacao, valor, StatusTransacao.valueOf(name), codigoAutorizacao, cartaoCredito);
         transacaoRepository.save(transacao);
@@ -44,10 +45,20 @@ public class TransacaoService {
     }
 
     @Transactional
-    public List<Transacao> buscaTransacoesPorCartao(String numeroCompletoCartao){
-        //Todo - Tratar caso nao exista
+    public List<Transacao> buscaTransacoesPorCartao(Long numeroCartao){
 
-        return transacaoRepository.findByAlunoNumeroCompletoCartaoCredito(numeroCompletoCartao);
+        ValidarCartao(numeroCartao);
+
+        List<Transacao> transacoes = transacaoRepository.findByCartaoCreditoNumero(numeroCartao);
+
+        if(transacoes.size() == 0)
+            throw new NoResultException("Nehuma Transação encontrada para este cartão");
+
+        return transacoes;
+    }
+
+    private void ValidarCartao(Long numeroCartao) {
+        cartaoCreditoService.buscaCartaoPorNumero(numeroCartao);
     }
 
     private void certificaQueTransacaoPodeSerCriada() {/*Todo Implementar.*/}

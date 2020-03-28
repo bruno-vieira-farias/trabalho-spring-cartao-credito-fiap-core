@@ -1,5 +1,9 @@
 
-GET localhost:8080/api/extrato?numeroCompletoCartao=10011
+GET localhost:8080/api/extrato?numeroCartao=40000000000108051
+
+###
+
+GET localhost:8080/api/extrato/download?numeroCartao=4000000000010805
 
 ###
 

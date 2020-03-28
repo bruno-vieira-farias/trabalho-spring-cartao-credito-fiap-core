@@ -1,17 +1,23 @@
 package br.com.fiap.cartaocredito.cartaocredito.entrypoints.extrato;
 
-import br.com.fiap.cartaocredito.cartaocredito.domain.entity.Transacao;
 import br.com.fiap.cartaocredito.cartaocredito.domain.service.TransacaoService;
 import br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao.StatusTransacaoDto;
 import br.com.fiap.cartaocredito.cartaocredito.entrypoints.transacao.TransacaoDto;
-import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
+import javax.persistence.NoResultException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/extrato")
@@ -24,15 +30,53 @@ public class ExtratoController {
     }
 
     @GetMapping
-    public ExtratoDto buscaPorCartao(@RequestParam("numeroCompletoCartao") String numeroCompletoCartao){
-        List<TransacaoDto> transacoes = transacaoService.buscaTransacoesPorCartao(numeroCompletoCartao)
+    public ExtratoDto buscaPorCartao(@RequestParam("numeroCartao") Long numeroCartao){
+        try {
+            return ObterExtrato(numeroCartao);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        } catch (NoResultException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, e.getMessage(), e);
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/download")
+    public void download(@RequestParam("numeroCartao") Long numeroCartao, HttpServletResponse response){
+        try {
+            ExtratoDto extratoDto = ObterExtrato(numeroCartao);
+
+            response.setContentType("text/plain");
+            response.setHeader("Content-Disposition","attachment;filename=extrato.txt");
+            ServletOutputStream out = response.getOutputStream();
+            out.println(extratoDto.toString());
+            out.flush();
+            out.close();
+        } catch (IllegalArgumentException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,e.getMessage(), e);
+        } catch (NoResultException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NO_CONTENT, e.getMessage(), e);
+        } catch (Exception e) {
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage(), e);
+        }
+    }
+
+    private ExtratoDto ObterExtrato(@RequestParam("numeroCartao") Long numeroCartao) {
+        List<TransacaoDto> transacoes = transacaoService.buscaTransacoesPorCartao(numeroCartao)
          .stream().map(transacao -> new TransacaoDto(
                 transacao.getId(),
                 transacao.getDataHoraCriacao(),
                 transacao.getValor(),
                 StatusTransacaoDto.valueOf(transacao.getStatus().name()),
                 transacao.getCodigoAutorizacao(),
-                transacao.getAluno().getRm()
+                transacao.getCartaoCredito().getNumero()
         )).collect(Collectors.toList());
 
         return new ExtratoDto(ZonedDateTime.now(), transacoes);

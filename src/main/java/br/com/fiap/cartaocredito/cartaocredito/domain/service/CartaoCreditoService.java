@@ -56,13 +56,12 @@ public class CartaoCreditoService {
 
     @Transactional
     public List<CartaoCredito> buscaCartaoPorIdTitular(Long idTitular){
-        List<CartaoCredito> cartoesCredito = cartaoCreditoRepository.findByTitular_Rm(idTitular);
-        return cartoesCredito;
+        return cartaoCreditoRepository.findByTitular_Rm(idTitular);
     }
 
     @Transactional
-    public CartaoCredito buscaCartaoPorId(Long id){
-        Optional<CartaoCredito> cartao = cartaoCreditoRepository.findById(id);
+    public CartaoCredito buscaCartaoPorNumero(Long numero){
+        Optional<CartaoCredito> cartao = cartaoCreditoRepository.findById(numero);
 
         if (!cartao.isPresent()) {
             throw new IllegalArgumentException("O Cartao não foi encontrado");

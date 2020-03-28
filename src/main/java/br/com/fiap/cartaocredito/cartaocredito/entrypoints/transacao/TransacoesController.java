@@ -19,14 +19,22 @@ public class TransacoesController {
 
     @PostMapping()
     public void registraTransacao(@RequestBody TransacaoDto transacaoDto) {
-        transacaoService.registraTransacao(
-                transacaoDto.getId(),
-                transacaoDto.getDataHoraCriacao(),
-                transacaoDto.getValor(),
-                transacaoDto.getStatus().name(),
-                transacaoDto.getCodigoAutorizacao(),
-                transacaoDto.getNumeroCartao()
-        );
+        try {
+            transacaoService.registraTransacao(
+                    transacaoDto.getId(),
+                    transacaoDto.getDataHoraCriacao(),
+                    transacaoDto.getValor(),
+                    transacaoDto.getStatus().name(),
+                    transacaoDto.getCodigoAutorizacao(),
+                    transacaoDto.getNumeroCartao()
+            );
+        } catch (IllegalArgumentException e){
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,e.getMessage(), e);
+        } catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage(), e);
+        }
     }
 
     @GetMapping("/{id}")
@@ -44,6 +52,9 @@ public class TransacoesController {
         } catch (NotFoundException e) {
             throw new ResponseStatusException(
                     HttpStatus.NOT_FOUND,e.getMessage(), e);
+        } catch (Exception e){
+            throw new ResponseStatusException(
+                    HttpStatus.INTERNAL_SERVER_ERROR,e.getMessage(), e);
         }
     }
 }
