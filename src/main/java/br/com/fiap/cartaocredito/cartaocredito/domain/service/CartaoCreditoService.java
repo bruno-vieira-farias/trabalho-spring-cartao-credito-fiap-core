@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,6 +52,23 @@ public class CartaoCreditoService {
         ).collect(Collectors.toList());
 
         cartaoCreditoRepository.saveAll(cartoes);
+    }
+
+    @Transactional
+    public List<CartaoCredito> buscaCartaoPorIdTitular(Long idTitular){
+        List<CartaoCredito> cartoesCredito = cartaoCreditoRepository.findByTitular_Rm(idTitular);
+        return cartoesCredito;
+    }
+
+    @Transactional
+    public CartaoCredito buscaCartaoPorId(Long id){
+        Optional<CartaoCredito> cartao = cartaoCreditoRepository.findById(id);
+
+        if (!cartao.isPresent()) {
+            throw new IllegalArgumentException("O Cartao não foi encontrado");
+        }
+
+        return cartao.get();
     }
 
 }
