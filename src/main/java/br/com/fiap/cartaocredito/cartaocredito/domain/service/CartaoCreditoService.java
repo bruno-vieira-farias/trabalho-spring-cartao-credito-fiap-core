@@ -72,8 +72,8 @@ public class CartaoCreditoService {
     }
 
     @Transactional
-    public CartaoCredito buscaCartaoPorId(Long id) {
-        Optional<CartaoCredito> cartao = cartaoCreditoRepository.findById(id);
+    public CartaoCredito buscaCartaoPorNumero(Long numero){
+        Optional<CartaoCredito> cartao = cartaoCreditoRepository.findById(numero);
 
         if (!cartao.isPresent()) {
             throw new IllegalArgumentException("O Cartao não foi encontrado");

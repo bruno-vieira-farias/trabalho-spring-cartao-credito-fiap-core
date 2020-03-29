@@ -26,47 +26,32 @@ public class TransacaoDto {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public LocalDateTime getDataHoraCriacao() {
         return dataHoraCriacao;
-    }
-
-    public void setDataHoraCriacao(LocalDateTime dataHoraCriacao) {
-        this.dataHoraCriacao = dataHoraCriacao;
     }
 
     public BigDecimal getValor() {
         return valor;
     }
 
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
     public StatusTransacaoDto getStatus() {
         return status;
-    }
-
-    public void setStatus(StatusTransacaoDto status) {
-        this.status = status;
     }
 
     public String getCodigoAutorizacao() {
         return codigoAutorizacao;
     }
 
-    public void setCodigoAutorizacao(String codigoAutorizacao) {
-        this.codigoAutorizacao = codigoAutorizacao;
-    }
-
     public Long getNumeroCartao() {
         return numeroCartao;
     }
 
-    public void setNumeroCartao(Long numeroCartao) {
-        this.numeroCartao = numeroCartao;
+    @Override
+    public String toString() {
+        return " Id: " + getId() +
+                "; Horário da transação: " + getDataHoraCriacao() +
+                "; Valor: " + getValor() +
+                "; Status: " + getStatus() +
+                "; Código de Autorização: " + getCodigoAutorizacao();
     }
 }
