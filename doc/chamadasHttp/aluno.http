@@ -15,11 +15,6 @@ Accept: application/json
 
 ###
 
-GET http://localhost:8080/api/aluno/4821815
-Accept: application/json
-
-###
-
 GET http://localhost:8080/api/aluno/codigoTurma/100-11
 Accept: application/json
 
