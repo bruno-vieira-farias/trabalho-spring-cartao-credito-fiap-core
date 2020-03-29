@@ -13,34 +13,16 @@ import java.util.stream.Collectors;
 
 @Service
 public class CartaoCreditoService {
-
-    private final AlunoService alunoService;
     private final CartaoCreditoRepository cartaoCreditoRepository;
     private final GeradorCartaoCreditoService geradorCartaoCreditoService;
 
-    public CartaoCreditoService(AlunoService alunoService, CartaoCreditoRepository cartaoCreditoRepository, GeradorCartaoCreditoService geradorCartaoCreditoService) {
-        this.alunoService = alunoService;
+    public CartaoCreditoService(CartaoCreditoRepository cartaoCreditoRepository, GeradorCartaoCreditoService geradorCartaoCreditoService) {
         this.cartaoCreditoRepository = cartaoCreditoRepository;
         this.geradorCartaoCreditoService = geradorCartaoCreditoService;
     }
 
     @Transactional
-    public void geraNovoCartaoCredito(Long rmAluno) {
-        Aluno aluno = alunoService.buscaAlunoPorRm(rmAluno);
-        CartaoCreditoDto novoCartaoDto = geradorCartaoCreditoService.obtemCartaoNovo();
-
-        CartaoCredito cartaoCredito = new CartaoCredito(
-                aluno,
-                novoCartaoDto.getNumero(),
-                novoCartaoDto.getCvc(),
-                novoCartaoDto.getVencimento()
-        );
-
-        cartaoCreditoRepository.save(cartaoCredito);
-    }
-
-    @Transactional
-    public void geraNovoCartaoCredito2(List<Aluno> alunos) {
+    public void geraNovoCartaoCredito(List<Aluno> alunos) {
 
         List<CartaoCredito> cartoes = alunos.stream().map(aluno -> {
                     CartaoCreditoDto novoCartaoDto = geradorCartaoCreditoService.obtemCartaoNovo();
@@ -81,5 +63,4 @@ public class CartaoCreditoService {
 
         return cartao.get();
     }
-
 }

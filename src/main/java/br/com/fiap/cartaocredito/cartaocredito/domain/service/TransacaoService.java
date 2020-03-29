@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.NoResultException;
-import java.math.BigDecimal;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -69,28 +67,24 @@ public class TransacaoService {
     public Transacao buscaTransacaoPorId(Integer id) throws NotFoundException {
         Optional<Transacao> transacao = transacaoRepository.findById(id);
 
-        if(!transacao.isPresent())
+        if (!transacao.isPresent())
             throw new NotFoundException("Transação não encontrada");
 
         return transacao.get();
     }
 
     @Transactional
-    public List<Transacao> buscaTransacoesPorCartao(Long numeroCartao){
-
-        ValidarCartao(numeroCartao);
-
+    public List<Transacao> buscaTransacoesPorCartao(Long numeroCartao) {
+        certificaQueCartaoExiste(numeroCartao);
         List<Transacao> transacoes = transacaoRepository.findByCartaoCreditoNumero(numeroCartao);
 
-        if(transacoes.size() == 0)
-            throw new NoResultException("Nehuma Transação encontrada para este cartão");
+        if (transacoes.size() == 0)
+            throw new NoResultException("Nenhuma Transação foi encontrada para este cartão");
 
         return transacoes;
     }
 
-    private void ValidarCartao(Long numeroCartao) {
+    private void certificaQueCartaoExiste(Long numeroCartao) {
         cartaoCreditoService.buscaCartaoPorNumero(numeroCartao);
     }
-
-    private void certificaQueTransacaoPodeSerCriada() {/*Todo Implementar.*/}
 }

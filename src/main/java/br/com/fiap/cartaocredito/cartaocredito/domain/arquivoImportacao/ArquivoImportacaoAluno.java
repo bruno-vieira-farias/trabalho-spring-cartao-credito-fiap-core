@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class ArquivoImportacao {
+/**
+ *  Representa o arquivo de importação de alunos.
+ */
+public class ArquivoImportacaoAluno {
     private List<Linha> linhas;
 
-    public ArquivoImportacao(String arquivo) {
+    public ArquivoImportacaoAluno(String arquivo) {
         String[] linhas = arquivo.split("\r\n\r");
         List<String> linhasValidas = filtraLinhasArquivo(linhas);
 

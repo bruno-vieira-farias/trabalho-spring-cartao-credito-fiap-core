@@ -7,9 +7,5 @@ import java.util.List;
 
 public interface CartaoCreditoRepository extends JpaRepository<CartaoCredito, Long> {
 
-    List<CartaoCredito> findByTitular_Rm(Long idTitular);
-
-
-
-
+    List<CartaoCredito> findByTitular_Rm(Long rm);
 }

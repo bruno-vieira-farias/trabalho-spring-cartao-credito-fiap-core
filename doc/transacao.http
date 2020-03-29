@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "dataHoraCriacao": "2020-03-16T22:54:34-03:00",
+  "dataHoraCriacao": "2020-03-16T22:54:34",
   "valor": 100.0,
   "status": "AUTORIZADA",
   "codigoAutorizacao": "abshhscvoododvjvs",

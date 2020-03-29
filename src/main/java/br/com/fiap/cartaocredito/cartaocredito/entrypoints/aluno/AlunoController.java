@@ -32,7 +32,7 @@ public class AlunoController {
     @GetMapping("/codigo-turma/{codigoTurma}")
     public List<AlunoDto> obtemAlunosPorCodigoTurma(@PathVariable String codigoTurma){
         try {
-            List<Aluno> alunos = alunoService.buscaAlunosCodigoTurma(codigoTurma);
+            List<Aluno> alunos = alunoService.buscaAlunosPorCodigoTurma(codigoTurma);
             List<AlunoDto> alunosDto = alunos.stream()
                     .map(it -> new AlunoDto(it.getRm(), it.getNome(), it.getCodigoTurma()))
                     .collect(Collectors.toList());

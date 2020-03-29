@@ -28,7 +28,7 @@ public class AlunoService {
     }
 
     @Transactional
-    public List<Aluno> buscaAlunosCodigoTurma(String codigoTurma) {
+    public List<Aluno> buscaAlunosPorCodigoTurma(String codigoTurma) {
         List<Aluno> alunos = alunoRepository.findByCodigoTurma(codigoTurma);
 
         if (alunos.size() == 0){

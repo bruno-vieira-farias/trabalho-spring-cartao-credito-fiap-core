@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface TransacaoRepository extends CrudRepository<Transacao, Integer> {
 
-
     List<Transacao> findByCartaoCreditoNumero(Long numeroCartaoCredito);
+
 }

@@ -1,15 +1,12 @@
 package br.com.fiap.cartaocredito.cartaocredito.domain.arquivoImportacao;
 
 /**
- * Classe que representa cada linha do arquivo importado.
+ * Classe que representa cada linha do arquivo de importacao aluno.
  */
 public class Linha {
     private String nome;
     private Long rm;
     private String codigoTurma;
-
-    public Linha() {
-    }
 
     public Linha(String nome, Long rm, String codigoTurma) {
         this.nome = nome;

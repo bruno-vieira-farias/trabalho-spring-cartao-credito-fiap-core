@@ -3,6 +3,9 @@ package br.com.fiap.cartaocredito.cartaocredito.domain.service;
 import java.time.LocalDate;
 import java.util.Objects;
 
+/**
+ *  Objeto de dominio utilizado para tráfego da informações do Cartao de Credito entre a camada do modelo e a camada da view.
+ */
 public class CartaoCreditoDto {
     private Long numero;
     private Integer cvc;
