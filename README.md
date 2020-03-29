@@ -6,6 +6,9 @@ API de um sistema de cartão de crédito para alunos da FIAP que conta com recur
 - Realização de transações;
 - Download de extrato no formato txt.
 
+### Arquitetura 
+![Tela Inicial](/doc/images/esquema.PNG)
+
 ### Setup
 
 - Preenchar suas configurações da api e de banco de dados no arquivo `application.yaml`.
