@@ -14,6 +14,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,9 +45,9 @@ public class TransacaoService {
 
     @Transactional
     public void registraTransacoes(List<TransacaoDto> transacoesDto) {
-        List<Long> numerosCartao = transacoesDto.stream()
+        Set<Long> numerosCartao = transacoesDto.stream()
                 .map(TransacaoDto::getNumeroCartao)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
         Map<Long, CartaoCredito> cartaoPorNumeroCartao =
                 cartaoCreditoService.buscaCartoesCreditoPorNumero(numerosCartao).stream()

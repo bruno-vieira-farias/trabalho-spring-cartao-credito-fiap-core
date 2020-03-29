@@ -35,7 +35,11 @@ public class TransacoesController {
 
     @PostMapping("/lista")
     public void registraTransacao(@RequestBody List<TransacaoDto> transacoesDto) {
-        transacaoService.registraTransacoes(transacoesDto);
+        try {
+            transacaoService.registraTransacoes(transacoesDto);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        }
     }
 
     @GetMapping("/{id}")
