@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.ManagedList;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
@@ -22,6 +23,7 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -90,6 +92,12 @@ class CartaoCreditoCreditoApplicationTests {
         LocalDate vencimento = LocalDate.now().plusYears(2);
         LocalDateTime data = LocalDateTime.now();
         TransacaoDto transacaoDto = new TransacaoDto(id, data, new BigDecimal("1500.99"), StatusTransacaoDto.AUTORIZADA, "Aut -99999", numeroCartao);
+        TransacaoDto transacaoDto1 = new TransacaoDto(id -1, data, new BigDecimal("1000.00"), StatusTransacaoDto.NAO_AUTORIZADA, "Aut -99998", numeroCartao);
+
+        List<TransacaoDto > transacaoDtoList = new ManagedList<>();
+        transacaoDtoList.add(transacaoDto);
+        transacaoDtoList.add(transacaoDto1);
+
         aluno = alunoRepository.findByRm(rm);
 
         if (aluno == null) {
@@ -112,10 +120,15 @@ class CartaoCreditoCreditoApplicationTests {
                 .content(objectMapper.writeValueAsString(transacaoDto)))
                 .andExpect(status().isOk());
 
+        //Post Registra transação lista
+        mockMvc.perform(post("/transacao/lista")
+                .contentType("application/json")
+                .content(objectMapper.writeValueAsString(transacaoDtoList)))
+                .andExpect(status().isOk());
+
         //Get Transação por ID
         mockMvc.perform(get("/transacao/{id}", id))
                 .andDo(print()).andExpect(status().isOk());
-
 
         //Importa Arquivo
         InputStream inputStream = getClass()
@@ -127,5 +140,16 @@ class CartaoCreditoCreditoApplicationTests {
                 .file("file", txtFile.getBytes())
                 .characterEncoding("UTF-8"))
                 .andExpect(status().isOk());
+
+        //Extrato
+        //Get por Número Cartão
+        mockMvc.perform(get("/extrato")
+                .param("numeroCartao",  numeroCartao.toString()))
+                .andDo(print()).andExpect(status().isOk());
+
+        //Download Extrato
+        mockMvc.perform(get("/extrato/download")
+                .param("numeroCartao",  numeroCartao.toString()))
+                .andDo(print()).andExpect(status().isOk());
     }
 }
