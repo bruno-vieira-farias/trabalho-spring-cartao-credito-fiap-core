@@ -49,9 +49,9 @@ public class TransacaoDto {
     @Override
     public String toString() {
         return " Id: " + getId() +
-                "; Horário da transação: " + getDataHoraCriacao() +
+                "; Horario da transacao: " + getDataHoraCriacao() +
                 "; Valor: " + getValor() +
                 "; Status: " + getStatus() +
-                "; Código de Autorização: " + getCodigoAutorizacao();
+                "; Codigo de Autorizacao: " + getCodigoAutorizacao();
     }
 }
