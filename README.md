@@ -26,3 +26,7 @@ Execute na raiz do projeto a task `bootRun` do gradle.
 
 ### Documentação da API
 Executando localmente a API na porta 8080, a documentação estará disponivel em [Swagger](http://localhost:8080/api/swagger-ui.html).
+
+### Banco de dados H2
+Foi utilizado o banco de dados H2 por ser de fácil configuração e atender as necessidades do projeto.
+
