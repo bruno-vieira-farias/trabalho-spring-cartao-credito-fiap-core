@@ -11,7 +11,6 @@ API de um sistema de cartão de crédito para alunos da FIAP que conta com recur
 - Preenchar suas configurações da api e de banco de dados no arquivo `application.yaml`.
 ```text
 // src/main/resources/application.yaml
-
 ```
 ### Run
 Execute na raiz do projeto a task `bootRun` do gradle.
